@@ -1,0 +1,75 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MakananActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:id="@+id/BtnImgMakanan"
+            android:src="@drawable/ic_launcher_background"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Informasi Makanan"
+        android:textSize="17dp"
+        android:textStyle="bold"/>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="8dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TxtNama"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Nama Makanan" />
+    </com.google.android.material.textfield.TextInputLayout>   
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="8dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TxtJenis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Jenis" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="8dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TxtHarga"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Harga"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/BtnAddMakanan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Makanan"
+        android:backgroundTint="#2b8236"
+        android:textColor="#fff"
+        android:layout_marginHorizontal="15dp"/>
+</LinearLayout>
