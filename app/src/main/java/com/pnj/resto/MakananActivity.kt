@@ -91,7 +91,6 @@ class MakananActivity : AppCompatActivity() {
             .setPositiveButton("Yes") {dialog, id ->
                 lifecycleScope.launch {
                     restoDB.getMakananDao().deleteMakanan(makanan)
-
                     val imagesDir =
                         Environment.getExternalStoragePublicDirectory("")
                     // Konversi dari dir string ke dir file
@@ -106,7 +105,6 @@ class MakananActivity : AppCompatActivity() {
                             toastDelete.show()
                         }
                     }
-
                     loadDataMakanan()
                 }
             }
@@ -114,6 +112,7 @@ class MakananActivity : AppCompatActivity() {
                 dialog.dismiss()
                 loadDataMakanan()
             }
+        loadDataMakanan()
         val alert = builder.create()
         alert.show()
     }
@@ -136,8 +135,20 @@ class MakananActivity : AppCompatActivity() {
                     makananList = restoDB.getMakananDao().getAllMakanan() as ArrayList<Makanan>
                     Log.e("position swiped", makananList[position].toString())
                     Log.e("position swiped", makananList.size.toString())
+                    val imagesDir =
+                        Environment.getExternalStoragePublicDirectory("")
+                    // Konversi dari dir string ke dir file
+                    val foto_delete = File(imagesDir, makananList[position].foto_makanan)
 
-
+                    if(foto_delete.exists()) {
+                        // Foto ada di dalam galery
+                        if(foto_delete.delete()) {
+                            // Foto di delete
+                            val toastDelete = Toast.makeText(applicationContext,
+                                "file edit foto delete", Toast.LENGTH_LONG)
+                            toastDelete.show()
+                        }
+                    }
                     deleteMakanan(makananList[position])
                 }
             }
