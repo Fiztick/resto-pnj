@@ -87,6 +87,14 @@ class EditMakananActivity : AppCompatActivity() {
                     put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
                     put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
                 }
+                // Inserting the contenValues to contentResolver and getting the Uri
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+                //Opening an outputsteam with the Uri that we got
+                fos = imageUri?.let {resolver.openOutputStream(it) }
+                // Store file dir to image_save
+                image_save = "${Environment.DIRECTORY_PICTURES}/${filename}"
             }
         }
         else {
@@ -116,7 +124,6 @@ class EditMakananActivity : AppCompatActivity() {
             val image_save_uri: String = saveMediaToStorage(dataGambar!!)
             binding.BtnImgMakanan.setImageBitmap(dataGambar)
             new_foto_dir = image_save_uri
-            binding.BtnImgMakanan.setImageBitmap(dataGambar)
         }
     }
 
@@ -136,7 +143,7 @@ class EditMakananActivity : AppCompatActivity() {
         val harga_makanan : Double = binding.TxtEditHarga.text.toString().toDouble()
         var foto_final_dir : String = old_foto_dir
 
-        if (old_foto_dir != new_foto_dir) {
+        if ( new_foto_dir != "") {
             foto_final_dir = new_foto_dir
             val imagesDir =
                 Environment.getExternalStoragePublicDirectory("")
@@ -169,8 +176,8 @@ class EditMakananActivity : AppCompatActivity() {
 
         val intent = intent
         binding.TxtEditNama.setText(intent.getStringExtra("nama_makanan").toString())
-        binding.TxtEditNama.setText(intent.getStringExtra("jenis_makanan").toString())
-        binding.TxtEditNama.setText(intent.getStringExtra("harga_makanan").toString())
+        binding.TxtEditJenis.setText(intent.getStringExtra("jenis_makanan").toString())
+        binding.TxtEditHarga.setText(intent.getStringExtra("harga_makanan").toString())
 
         id_makanan = intent.getStringExtra("id").toString().toInt()
 

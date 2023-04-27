@@ -42,7 +42,7 @@ class MakananAdapter(private val makananList: ArrayList<Makanan>) :
         holder.itemView.setOnClickListener {
             val activity = it.context as AppCompatActivity
             activity.startActivity(Intent(activity, EditMakananActivity::class.java).apply {
-                putExtra("nama makanan", currentItem.nama_makanan.toString())
+                putExtra("nama_makanan", currentItem.nama_makanan.toString())
                 putExtra("jenis_makanan", currentItem.jenis_makanan.toString())
                 putExtra("harga_makanan", currentItem.harga.toString())
                 putExtra("foto_makanan", currentItem.foto_makanan.toString())

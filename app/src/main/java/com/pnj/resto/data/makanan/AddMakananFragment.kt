@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -25,18 +26,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-import javax.security.auth.callback.PasswordCallback
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddMakananFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddMakananFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentAddMakananBinding? = null
     private val binding get() = _binding!!
@@ -48,15 +39,8 @@ class AddMakananFragment : BottomSheetDialogFragment() {
     private val STORAGE_PERMISSION_CODE = 102
     private val TAG = "PERMISSION_TAG"
 
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -97,6 +81,14 @@ class AddMakananFragment : BottomSheetDialogFragment() {
                     put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
                     put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
                 }
+                // Inserting the contenValues to contentResolver and getting the Uri
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+                //Opening an outputsteam with the Uri that we got
+                fos = imageUri?.let {resolver.openOutputStream(it) }
+                // Store file dir to image_save
+                image_save = "${Environment.DIRECTORY_PICTURES}/${filename}"
             }
         }
         else {
@@ -156,25 +148,5 @@ class AddMakananFragment : BottomSheetDialogFragment() {
                 addMakanan()
             }
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddMakananFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddMakananFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
